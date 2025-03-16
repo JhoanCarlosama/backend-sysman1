@@ -3,7 +3,6 @@ package com.example.sysman.controller;
 import com.example.sysman.model.City;
 import com.example.sysman.service.CityService;
 import com.example.sysman.utils.EntityResponse;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ public class CityController {
     CityService service;
 
     @GetMapping(value="all")
-    @Operation(summary = "Listar todas las ciudades", description = "Obtiene una lista de las ciudades.")
     public EntityResponse<?> index() {
         return EntityResponse.builder()
                 .code(HttpStatus.OK.value())
@@ -32,7 +30,6 @@ public class CityController {
     }
 
     @GetMapping(value = "/show/{id}")
-    @Operation(summary = "Buscar una ciudad", description = "Busca una ciudad en la BD por Id.")
     public ResponseEntity<?> show(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -40,7 +37,6 @@ public class CityController {
     }
 
     @PostMapping(value = "/create")
-    @Operation(summary = "Crear una ciudad", description = "Registra una nueva ciudad en la BD.")
     public EntityResponse<?> create(@RequestBody City city) {
         return EntityResponse.builder()
                 .code(HttpStatus.CREATED.value())
@@ -50,7 +46,6 @@ public class CityController {
     }
 
     @PostMapping(value = "/update")
-    @Operation(summary = "Editar una ciudad", description = "Edita una ciudad existente en la BD.")
     public EntityResponse<?> update(@RequestBody City city) {
         return EntityResponse.builder()
                 .code(HttpStatus.OK.value())

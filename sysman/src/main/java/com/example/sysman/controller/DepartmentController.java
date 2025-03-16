@@ -3,7 +3,6 @@ package com.example.sysman.controller;
 import com.example.sysman.model.Department;
 import com.example.sysman.service.DepartmentService;
 import com.example.sysman.utils.EntityResponse;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ public class DepartmentController {
     DepartmentService service;
 
     @GetMapping(value="all")
-    @Operation(summary = "Listar todos los departamentos", description = "Obtiene una lista de departamentos.")
     public EntityResponse<?> index() {
         return EntityResponse.builder()
                 .code(HttpStatus.OK.value())
@@ -33,7 +31,6 @@ public class DepartmentController {
     }
 
     @GetMapping(value = "/show/{id}")
-    @Operation(summary = "Buscar un departamento", description = "Busca un departamento en la BD por Id.")
     public ResponseEntity<?> show(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -41,7 +38,6 @@ public class DepartmentController {
     }
 
     @PostMapping(value = "/create")
-    @Operation(summary = "Crear un departamento", description = "Registra un nuevo departamento en la BD.")
     public EntityResponse<?> create(@RequestBody Department department) {
         return EntityResponse.builder()
                 .code(HttpStatus.CREATED.value())
@@ -51,7 +47,6 @@ public class DepartmentController {
     }
 
     @PostMapping(value = "/update")
-    @Operation(summary = "Editar un departamento", description = "Edita un departamento existente en la BD.")
     public EntityResponse<?> update(@RequestBody Department department) {
         return EntityResponse.builder()
                 .code(HttpStatus.OK.value())
