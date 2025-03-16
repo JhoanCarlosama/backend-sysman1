@@ -21,13 +21,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> findAll() {
         return Optional.of(repository.findAll()
-                .stream().map(mapper::toModel).toList()).orElseThrow(RuntimeException::new);
+                .stream().map(mapper::toModel).toList()).orElseThrow(()-> new RuntimeException("empty list"));
     }
 
     @Override
     public Department save(Department department) {
         return Optional.of(repository.save(mapper.toData(department)))
-                .map(mapper::toModel).orElseThrow(RuntimeException::new);
+                .map(mapper::toModel).orElseThrow(() -> new RuntimeException("error saving department"));
     }
 
     @Override
@@ -43,6 +43,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findById(Long id) {
-        return Optional.of(mapper.toModel(repository.findById(id).get())).orElseThrow(RuntimeException::new);
+        return Optional.of(mapper.toModel(repository.findById(id).get())).orElseThrow(() -> new RuntimeException("city no found by id"));
     }
 }

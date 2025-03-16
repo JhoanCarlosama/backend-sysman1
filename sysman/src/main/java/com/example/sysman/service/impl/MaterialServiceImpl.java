@@ -31,7 +31,7 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public List<Material> findAll() {
         return Optional.of(repository.findAll()
-                .stream().map(mapper::toModel).toList()).orElseThrow(RuntimeException::new);
+                .stream().map(mapper::toModel).toList()).orElseThrow(()-> new RuntimeException("empty list"));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MaterialServiceImpl implements MaterialService {
         material.setDatePurchase(LocalDate.parse(material.getDatePurchase().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         return Optional.of(repository.save(mapper.toData(material)))
-                .map(mapper::toModel).orElseThrow(RuntimeException::new);
+                .map(mapper::toModel).orElseThrow(() -> new RuntimeException("error saving material"));
     }
 
     @Override
@@ -67,11 +67,11 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public Material findById(Long id) {
-        return Optional.of(mapper.toModel(repository.findById(id).get())).orElseThrow(RuntimeException::new);
+        return Optional.of(mapper.toModel(repository.findById(id).get())).orElseThrow(() -> new RuntimeException("city not found by id"));
     }
 
     @Override
     public Material findByName(String name) {
-        return Optional.of(mapper.toModel(repository.findByName(name).get())).orElseThrow(RuntimeException::new);
+        return Optional.of(mapper.toModel(repository.findByName(name).get())).orElseThrow(() -> new RuntimeException("city not found by name"));
     }
 }

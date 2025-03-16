@@ -25,13 +25,13 @@ public class CityServiceImp implements CityService {
     @Override
     public List<City> findAll() {
         return Optional.of(repository.findAll()
-                .stream().map(mapper::toModel).toList()).orElseThrow(RuntimeException::new);
+                .stream().map(mapper::toModel).toList()).orElseThrow(()-> new RuntimeException("empty list"));
     }
 
     @Override
     public City save(City city) {
         return Optional.of(repository.save(mapper.toData(city)))
-                .map(mapper::toModel).orElseThrow(RuntimeException::new);
+                .map(mapper::toModel).orElseThrow(() -> new RuntimeException("error saving city"));
     }
 
     @Override
@@ -52,11 +52,11 @@ public class CityServiceImp implements CityService {
 
     @Override
     public City findById(Long id) {
-        return Optional.of(mapper.toModel(repository.findById(id).get())).orElseThrow(RuntimeException::new);
+        return Optional.of(mapper.toModel(repository.findById(id).get())).orElseThrow(() -> new RuntimeException("city no found by id"));
     }
 
     @Override
     public City findByName(String name) {
-        return Optional.of(mapper.toModel(repository.findByName(name).get())).orElseThrow(RuntimeException::new);
+        return Optional.of(mapper.toModel(repository.findByName(name).get())).orElseThrow(() -> new RuntimeException("city not found by name"));
     }
 }
